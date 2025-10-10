@@ -10,6 +10,7 @@ from jaxtyping import Bool, Float, Int
 from torch import Tensor
 
 
+
 def run_linear(
     d_in: int,
     d_out: int,
@@ -539,6 +540,7 @@ def run_load_checkpoint(
     raise NotImplementedError
 
 
+from cs336_basics.bpe_tokenizer import Tokenizer
 def get_tokenizer(
     vocab: dict[int, bytes],
     merges: list[tuple[bytes, bytes]],
@@ -559,8 +561,11 @@ def get_tokenizer(
     Returns:
         A BPE tokenizer that uses the provided vocab, merges, and special tokens.
     """
-    raise NotImplementedError
+    # raise NotImplementedError
+    return Tokenizer(vocab, merges, special_tokens)
 
+from cs336_basics.bpe_tokenizer import train_bpe
+# from cs336_basics.bpe_tokenizer_dml import train_bpe
 
 def run_train_bpe(
     input_path: str | os.PathLike,
@@ -589,4 +594,6 @@ def run_train_bpe(
                 representing that <token1> was merged with <token2>.
                 Merges are ordered by order of creation.
     """
-    raise NotImplementedError
+    # print('\n\nrun_train_bpe')
+    return train_bpe(input_path,vocab_size,special_tokens)
+    # raise NotImplementedError
