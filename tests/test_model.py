@@ -19,6 +19,7 @@ from .adapters import (
 
 
 def test_linear(numpy_snapshot, ts_state_dict, in_embeddings, d_model, d_ff):
+    # import pdb;pdb.set_trace()
     w1_weight = ts_state_dict[0]["layers.0.ffn.w1.weight"]
     output = run_linear(
         d_in=d_model,
@@ -177,7 +178,7 @@ def test_rmsnorm(numpy_snapshot, ts_state_dict, in_embeddings):
     state_dict, _ = ts_state_dict
     reference_weights = state_dict["layers.1.ln1.weight"]
     d_model = reference_weights.shape[0]
-
+    # import pdb;pdb.set_trace()
     actual_output = run_rmsnorm(d_model=d_model, eps=1e-5, weights=reference_weights, in_features=in_embeddings)
 
     numpy_snapshot.assert_match(actual_output, atol=1e-6)

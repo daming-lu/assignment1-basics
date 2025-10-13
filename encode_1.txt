@@ -1,0 +1,135 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.11, pytest-8.4.1, pluggy-1.6.0
+rootdir: /Users/bytedance/daminglu_2022/personal/paternal_leave_2nd/cs336/hw1/assignment1-basics
+configfile: pyproject.toml
+plugins: jaxtyping-0.3.2
+collected 1 item
+
+tests/test_tokenizer.py::test_encode_iterable_tinystories_sample_roundtrip 
+
+pre_tokens_list: 
+
+ [[b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'c', b'e'], [b' ', b'u', b'p', b'o', b'n'], [b' ', b'a'], [b' ', b't', b'i', b'm', b'e'], [b' ', b't', b'h', b'e', b'r', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'a'], [b' ', b'l', b'i', b't', b't', b'l', b'e'], [b' ', b'b', b'o', b'y'], [b' ', b'n', b'a', b'm', b'e', b'd'], [b' ', b'B', b'e', b'n'], [b'.'], [b' ', b'B', b'e', b'n'], [b' ', b'l', b'o', b'v', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'e', b'x', b'p', b'l', b'o', b'r', b'e'], [b' ', b't', b'h', b'e'], [b' ', b'w', b'o', b'r', b'l', b'd'], [b' ', b'a', b'r', b'o', b'u', b'n', b'd'], [b' ', b'h', b'i', b'm'], [b'.'], [b' ', b'H', b'e'], [b' ', b's', b'a', b'w'], [b' ', b'm', b'a', b'n', b'y'], [b' ', b'a', b'm', b'a', b'z', b'i', b'n', b'g'], [b' ', b't', b'h', b'i', b'n', b'g', b's'], [b','], [b' ', b'l', b'i', b'k', b'e'], [b' ', b'b', b'e', b'a', b'u', b't', b'i', b'f', b'u', b'l'], [b' ', b'v', b'a', b's', b'e', b's'], [b' ', b't', b'h', b'a', b't'], [b' ', b'w', b'e', b'r', b'e'], [b' ', b'o', b'n'], [b' ', b'd', b'i', b's', b'p', b'l', b'a', b'y'], [b' ', b'i', b'n'], [b' ', b'a'], [b' ', b's', b't', b'o', b'r', b'e'], [b'.'], [b' ', b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'B', b'e', b'n'], [b' ', b'w', b'a', b's'], [b' ', b'w', b'a', b'l', b'k', b'i', b'n', b'g'], [b' ', b't', b'h', b'r', b'o', b'u', b'g', b'h'], [b' ', b't', b'h', b'e'], [b' ', b's', b't', b'o', b'r', b'e'], [b' ', b'w', b'h', b'e', b'n'], [b' ', b'h', b'e'], [b' ', b'c', b'a', b'm', b'e'], [b' ', b'a', b'c', b'r', b'o', b's', b's'], [b' ', b'a'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b's', b'p', b'e', b'c', b'i', b'a', b'l'], [b' ', b'v', b'a', b's', b'e'], [b'.'], [b' ', b'W', b'h', b'e', b'n'], [b' ', b'B', b'e', b'n'], [b' ', b's', b'a', b'w'], [b' ', b'i', b't'], [b' ', b'h', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'a', b'm', b'a', b'z', b'e', b'd'], [b'!'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'H', b'e'], [b' ', b's', b'a', b'i', b'd'], [b','], [b' ', b'\xe2', b'\x80', b'\x9c'], [b'W', b'o', b'w'], [b','], [b' ', b't', b'h', b'a', b't'], [b' ', b'i', b's'], [b' ', b'a'], [b' ', b'r', b'e', b'a', b'l', b'l', b'y'], [b' ', b'a', b'm', b'a', b'z', b'i', b'n', b'g'], [b' ', b'v', b'a', b's', b'e'], [b'!'], [b' ', b'C', b'a', b'n'], [b' ', b'I'], [b' ', b'b', b'u', b'y'], [b' ', b'i', b't'], [b'?', b'\xe2', b'\x80', b'\x9d'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'T', b'h', b'e'], [b' ', b's', b'h', b'o', b'p', b'k', b'e', b'e', b'p', b'e', b'r'], [b' ', b's', b'm', b'i', b'l', b'e', b'd'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'a', b'i', b'd'], [b','], [b' ', b'\xe2', b'\x80', b'\x9c'], [b'O', b'f'], [b' ', b'c', b'o', b'u', b'r', b's', b'e'], [b' ', b'y', b'o', b'u'], [b' ', b'c', b'a', b'n'], [b'.'], [b' ', b'Y', b'o', b'u'], [b' ', b'c', b'a', b'n'], [b' ', b't', b'a', b'k', b'e'], [b' ', b'i', b't'], [b' ', b'h', b'o', b'm', b'e'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'h', b'o', b'w'], [b' ', b'a', b'l', b'l'], [b' ', b'y', b'o', b'u', b'r'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b' ', b'h', b'o', b'w'], [b' ', b'a', b'm', b'a', b'z', b'i', b'n', b'g'], [b' ', b'i', b't'], [b' ', b'i', b's'], [b'!', b'\xe2', b'\x80', b'\x9d'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'S', b'o'], [b' ', b'B', b'e', b'n'], [b' ', b't', b'o', b'o', b'k'], [b' ', b't', b'h', b'e'], [b' ', b'v', b'a', b's', b'e'], [b' ', b'h', b'o', b'm', b'e'], [b' ', b'a', b'n', b'd'], [b' ', b'h', b'e'], [b' ', b'w', b'a', b's'], [b' ', b's', b'o'], [b' ', b'p', b'r', b'o', b'u', b'd'], [b' ', b'o', b'f'], [b' ', b'i', b't'], [b'!'], [b' ', b'H', b'e'], [b' ', b'c', b'a', b'l', b'l', b'e', b'd'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b' ', b'o', b'v', b'e', b'r'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'h', b'o', b'w', b'e', b'd'], [b' ', b't', b'h', b'e', b'm'], [b' ', b't', b'h', b'e'], [b' ', b'a', b'm', b'a', b'z', b'i', b'n', b'g'], [b' ', b'v', b'a', b's', b'e'], [b'.'], [b' ', b'A', b'l', b'l'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b' ', b't', b'h', b'o', b'u', b'g', b'h', b't'], [b' ', b't', b'h', b'e'], [b' ', b'v', b'a', b's', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'b', b'e', b'a', b'u', b't', b'i', b'f', b'u', b'l'], [b' ', b'a', b'n', b'd'], [b' ', b'c', b'o', b'u', b'l', b'd', b'n'], [b"'", b't'], [b' ', b'b', b'e', b'l', b'i', b'e', b'v', b'e'], [b' ', b'h', b'o', b'w'], [b' ', b'l', b'u', b'c', b'k', b'y'], [b' ', b'B', b'e', b'n'], [b' ', b'w', b'a', b's'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'A', b'n', b'd'], [b' ', b't', b'h', b'a', b't'], [b"'", b's'], [b' ', b'h', b'o', b'w'], [b' ', b'B', b'e', b'n'], [b' ', b'f', b'o', b'u', b'n', b'd'], [b' ', b'a', b'n'], [b' ', b'a', b'm', b'a', b'z', b'i', b'n', b'g'], [b' ', b'v', b'a', b's', b'e'], [b' ', b'i', b'n'], [b' ', b't', b'h', b'e'], [b' ', b's', b't', b'o', b'r', b'e'], [b'!'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'<', b'|'], [b'e', b'n', b'd', b'o', b'f', b't', b'e', b'x', b't'], [b'|', b'>'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'c', b'e'], [b' ', b'u', b'p', b'o', b'n'], [b' ', b'a'], [b' ', b't', b'i', b'm', b'e'], [b','], [b' ', b't', b'h', b'e', b'r', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'a'], [b' ', b'r', b'e', b'l', b'i', b'a', b'b', b'l', b'e'], [b' ', b'o', b't', b't', b'e', b'r'], [b' ', b'n', b'a', b'm', b'e', b'd'], [b' ', b'O', b'l', b'l', b'i', b'e'], [b'.'], [b' ', b'H', b'e'], [b' ', b'l', b'i', b'v', b'e', b'd'], [b' ', b'i', b'n'], [b' ', b'a'], [b' ', b'r', b'i', b'v', b'e', b'r'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'a', b'm', b'i', b'l', b'y'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'a', b'l', b'l'], [b' ', b'l', b'o', b'v', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'w', b'i', b'm'], [b' ', b't', b'o', b'g', b'e', b't', b'h', b'e', b'r'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'O', b'l', b'l', b'i', b'e'], [b"'", b's'], [b' ', b'm', b'o', b'm'], [b' ', b's', b'a', b'i', b'd'], [b','], [b' ', b'"'], [b'O', b'l', b'l', b'i', b'e'], [b','], [b' ', b'h', b'u', b'r', b'r', b'y'], [b' ', b'a', b'n', b'd'], [b' ', b'g', b'e', b't'], [b' ', b's', b'o', b'm', b'e'], [b' ', b'f', b'i', b's', b'h'], [b' ', b'f', b'o', b'r'], [b' ', b'd', b'i', b'n', b'n', b'e', b'r'], [b'!', b'"'], [b' ', b'O', b'l', b'l', b'i', b'e'], [b' ', b's', b'w', b'a', b'm'], [b' ', b'f', b'a', b's', b't'], [b' ', b't', b'o'], [b' ', b'c', b'a', b't', b'c', b'h'], [b' ', b'f', b'i', b's', b'h'], [b'.'], [b' ', b'H', b'e'], [b' ', b's', b'a', b'w'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd'], [b','], [b' ', b't', b'h', b'e'], [b' ', b'd', b'u', b'c', b'k'], [b'.'], [b' ', b'"'], [b'H', b'i'], [b','], [b' ', b'O', b'l', b'l', b'i', b'e'], [b'!', b'"'], [b' ', b's', b'a', b'i', b'd'], [b' ', b't', b'h', b'e'], [b' ', b'd', b'u', b'c', b'k'], [b'.'], [b' ', b'"'], [b'H', b'i'], [b','], [b' ', b'd', b'u', b'c', b'k'], [b'!', b'"'], [b' ', b's', b'a', b'i', b'd'], [b' ', b'O', b'l', b'l', b'i', b'e'], [b'.'], [b' ', b'"'], [b'I'], [b' ', b'n', b'e', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'h', b'u', b'r', b'r', b'y'], [b' ', b'a', b'n', b'd'], [b' ', b'c', b'a', b't', b'c', b'h'], [b' ', b'f', b'i', b's', b'h'], [b' ', b'f', b'o', b'r'], [b' ', b'm', b'y'], [b' ', b'f', b'a', b'm', b'i', b'l', b'y'], [b'.', b'"'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'W', b'h', b'i', b'l', b'e'], [b' ', b'O', b'l', b'l', b'i', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'c', b'a', b't', b'c', b'h', b'i', b'n', b'g'], [b' ', b'f', b'i', b's', b'h'], [b','], [b' ', b'h', b'e'], [b' ', b'f', b'o', b'u', b'n', b'd'], [b' ', b'a'], [b' ', b'b', b'i', b'g'], [b' ', b's', b'h', b'i', b'n', b'y'], [b' ', b's', b't', b'o', b'n', b'e'], [b'.'], [b' ', b'H', b'e'], [b' ', b't', b'h', b'o', b'u', b'g', b'h', b't'], [b','], [b' ', b'"'], [b'T', b'h', b'i', b's'], [b' ', b'i', b's'], [b' ', b'n', b'o', b't'], [b' ', b'a'], [b' ', b'f', b'i', b's', b'h'], [b','], [b' ', b'b', b'u', b't'], [b' ', b'i', b't'], [b' ', b'i', b's'], [b' ', b's', b'o'], [b' ', b'p', b'r', b'e', b't', b't', b'y'], [b'!', b'"'], [b' ', b'O', b'l', b'l', b'i', b'e'], [b' ', b't', b'o', b'o', b'k'], [b' ', b't', b'h', b'e'], [b' ', b's', b'h', b'i', b'n', b'y'], [b' ', b's', b't', b'o', b'n', b'e'], [b' ', b'h', b'o', b'm', b'e'], [b' ', b't', b'o'], [b' ', b's', b'h', b'o', b'w'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'a', b'm', b'i', b'l', b'y'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'a', b'l', b'l'], [b' ', b'l', b'o', b'o', b'k', b'e', b'd'], [b' ', b'a', b't'], [b' ', b't', b'h', b'e'], [b' ', b's', b'h', b'i', b'n', b'y'], [b' ', b's', b't', b'o', b'n', b'e'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'm', b'i', b'l', b'e', b'd'], [b'.'], [b' ', b'T', b'h', b'e'], [b' ', b's', b'h', b'i', b'n', b'y'], [b' ', b's', b't', b'o', b'n', b'e'], [b' ', b'm', b'a', b'd', b'e'], [b' ', b'e', b'v', b'e', b'r', b'y', b'o', b'n', b'e'], [b' ', b'h', b'a', b'p', b'p', b'y'], [b','], [b' ', b'a', b'n', b'd'], [b' ', b't', b'h', b'e', b'y'], [b' ', b'f', b'o', b'r', b'g', b'o', b't'], [b' ', b'a', b'b', b'o', b'u', b't'], [b' ', b't', b'h', b'e'], [b' ', b'f', b'i', b's', b'h'], [b' ', b'f', b'o', b'r'], [b' ', b'd', b'i', b'n', b'n', b'e', b'r'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'<', b'|'], [b'e', b'n', b'd', b'o', b'f', b't', b'e', b'x', b't'], [b'|', b'>'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'a'], [b' ', b'l', b'i', b't', b't', b'l', b'e'], [b' ', b'b', b'o', b'y'], [b' ', b'n', b'a', b'm', b'e', b'd'], [b' ', b'T', b'i', b'm'], [b' ', b'w', b'e', b'n', b't'], [b' ', b't', b'o'], [b' ', b't', b'h', b'e'], [b' ', b'p', b'a', b'r', b'k'], [b'.'], [b' ', b'H', b'e'], [b' ', b's', b'a', b'w'], [b' ', b'a'], [b' ', b'b', b'i', b'g'], [b' ', b't', b'i', b'g', b'e', b'r'], [b'.'], [b' ', b'T', b'h', b'e'], [b' ', b't', b'i', b'g', b'e', b'r'], [b' ', b'w', b'a', b's'], [b' ', b'n', b'o', b't'], [b' ', b'm', b'e', b'a', b'n'], [b','], [b' ', b'b', b'u', b't'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b'e', b'a', b's', b'y'], [b' ', b't', b'o'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'w', b'i', b't', b'h'], [b'.'], [b' ', b'T', b'i', b'm'], [b' ', b'a', b'n', b'd'], [b' ', b't', b'h', b'e'], [b' ', b't', b'i', b'g', b'e', b'r'], [b' ', b'p', b'l', b'a', b'y', b'e', b'd'], [b' ', b'a', b'l', b'l'], [b' ', b'd', b'a', b'y'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'h', b'a', b'd'], [b' ', b'l', b'o', b't', b's'], [b' ', b'o', b'f'], [b' ', b'f', b'u', b'n'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'T', b'h', b'e', b'n'], [b','], [b' ', b's', b'o', b'm', b'e', b't', b'h', b'i', b'n', b'g'], [b' ', b'u', b'n', b'e', b'x', b'p', b'e', b'c', b't', b'e', b'd'], [b' ', b'h', b'a', b'p', b'p', b'e', b'n', b'e', b'd'], [b'.'], [b' ', b'T', b'h', b'e'], [b' ', b't', b'i', b'g', b'e', b'r'], [b' ', b's', b't', b'a', b'r', b't', b'e', b'd'], [b' ', b't', b'o'], [b' ', b's', b'h', b'a', b'k', b'e'], [b'.'], [b' ', b'T', b'i', b'm'], [b' ', b'w', b'a', b's'], [b' ', b's', b'c', b'a', b'r', b'e', b'd'], [b'.'], [b' ', b'H', b'e'], [b' ', b'd', b'i', b'd'], [b' ', b'n', b'o', b't'], [b' ', b'k', b'n', b'o', b'w'], [b' ', b'w', b'h', b'a', b't'], [b' ', b'w', b'a', b's'], [b' ', b'g', b'o', b'i', b'n', b'g'], [b' ', b'o', b'n'], [b'.'], [b' ', b'B', b'u', b't'], [b' ', b't', b'h', b'e', b'n'], [b','], [b' ', b't', b'h', b'e'], [b' ', b't', b'i', b'g', b'e', b'r'], [b' ', b't', b'u', b'r', b'n', b'e', b'd'], [b' ', b'i', b'n', b't', b'o'], [b' ', b'a'], [b' ', b'n', b'i', b'c', b'e'], [b' ', b'd', b'o', b'g'], [b'.'], [b' ', b'T', b'i', b'm'], [b' ', b'w', b'a', b's'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b's', b'u', b'r', b'p', b'r', b'i', b's', b'e', b'd'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'T', b'i', b'm'], [b' ', b'a', b'n', b'd'], [b' ', b't', b'h', b'e'], [b' ', b'd', b'o', b'g'], [b' ', b'p', b'l', b'a', b'y', b'e', b'd'], [b' ', b't', b'o', b'g', b'e', b't', b'h', b'e', b'r'], [b' ', b'n', b'o', b'w'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'w', b'e', b'r', b'e'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b'h', b'a', b'p', b'p', b'y'], [b'.'], [b' ', b'T', b'h', b'e'], [b' ', b'd', b'o', b'g'], [b' ', b'w', b'a', b's'], [b' ', b'e', b'a', b's', b'y'], [b' ', b't', b'o'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'w', b'i', b't', b'h'], [b' ', b't', b'o', b'o'], [b'.'], [b' ', b'A', b't'], [b' ', b't', b'h', b'e'], [b' ', b'e', b'n', b'd'], [b' ', b'o', b'f'], [b' ', b't', b'h', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'T', b'i', b'm'], [b' ', b'w', b'e', b'n', b't'], [b' ', b'h', b'o', b'm', b'e'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'h', b'i', b's'], [b' ', b'n', b'e', b'w'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'<', b'|'], [b'e', b'n', b'd', b'o', b'f', b't', b'e', b'x', b't'], [b'|', b'>'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'c', b'e'], [b' ', b'u', b'p', b'o', b'n'], [b' ', b'a'], [b' ', b't', b'i', b'm', b'e'], [b' ', b't', b'h', b'e', b'r', b'e'], [b' ', b'w', b'a', b's'], [b' ', b'a'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b'l', b'y'], [b' ', b'l', b'i', b't', b't', b'l', b'e'], [b' ', b'b', b'o', b'y'], [b' ', b'c', b'a', b'l', b'l', b'e', b'd'], [b' ', b'B', b'o', b'b'], [b'.'], [b' ', b'B', b'o', b'b'], [b' ', b'l', b'o', b'v', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'p', b'i', b'c', b'k'], [b' ', b'f', b'l', b'o', b'w', b'e', b'r', b's'], [b' ', b'a', b'n', b'd'], [b' ', b'l', b'o', b'o', b'k'], [b' ', b'f', b'o', b'r'], [b' ', b'b', b'i', b'r', b'd', b's'], [b'.'], [b' ', b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b' ', b'h', b'e'], [b' ', b'd', b'e', b'c', b'i', b'd', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'g', b'o'], [b' ', b'o', b'u', b't', b's', b'i', b'd', b'e'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b' ', b't', b'o'], [b' ', b'p', b'i', b'c', b'k'], [b' ', b's', b'o', b'm', b'e'], [b' ', b'm', b'o', b'r', b'e'], [b' ', b'f', b'l', b'o', b'w', b'e', b'r', b's'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'H', b'e'], [b' ', b's', b'u', b'd', b'd', b'e', b'n', b'l', b'y'], [b' ', b'n', b'o', b't', b'i', b'c', b'e', b'd'], [b' ', b's', b'o', b'm', b'e', b't', b'h', b'i', b'n', b'g'], [b' ', b'w', b'e', b'i', b'r', b'd'], [b' ', b'o', b'n'], [b' ', b't', b'h', b'e'], [b' ', b'g', b'r', b'o', b'u', b'n', b'd'], [b'.'], [b' ', b'I', b't'], [b' ', b'w', b'a', b's'], [b' ', b'a'], [b' ', b'b', b'i', b'g'], [b','], [b' ', b'g', b'r', b'e', b'e', b'n'], [b' ', b't', b'h', b'u', b'm', b'b'], [b'!'], [b' ', b'I', b't'], [b' ', b'w', b'a', b's'], [b' ', b's', b'o'], [b' ', b'b', b'i', b'g'], [b','], [b' ', b'B', b'o', b'b'], [b' ', b'h', b'a', b'd'], [b' ', b'n', b'e', b'v', b'e', b'r'], [b' ', b's', b'e', b'e', b'n'], [b' ', b'o', b'n', b'e'], [b' ', b'b', b'e', b'f', b'o', b'r', b'e'], [b'.'], [b' ', b'B', b'o', b'b'], [b' ', b'c', b'u', b'r', b'i', b'o', b'u', b's', b'l', b'y'], [b' ', b'l', b'e', b'a', b'n', b'e', b'd'], [b' ', b'i', b'n'], [b' ', b't', b'o'], [b' ', b't', b'a', b'k', b'e'], [b' ', b'a'], [b' ', b'b', b'e', b't', b't', b'e', b'r'], [b' ', b'l', b'o', b'o', b'k'], [b'.'], [b' ', b'H', b'e'], [b' ', b't', b'o', b'l', b'd'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b':'], [b' ', b'"'], [b'l', b'o', b'o', b'k'], [b' ', b'e', b'v', b'e', b'r', b'y', b'o', b'n', b'e'], [b','], [b' ', b'I'], [b' ', b'p', b'i', b'c', b'k', b'e', b'd'], [b' ', b'u', b'p'], [b' ', b't', b'h', b'i', b's'], [b' ', b'b', b'i', b'g'], [b' ', b't', b'h', b'u', b'm', b'b'], [b'!'], [b' ', b'W', b'h', b'a', b't'], [b' ', b'd', b'o'], [b' ', b'w', b'e'], [b' ', b'd', b'o'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'i', b't'], [b'?', b'"'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'H', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b' ', b'w', b'e', b'r', b'e'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b'e', b'x', b'c', b'i', b't', b'e', b'd'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b't', b'o', b'l', b'd'], [b' ', b'h', b'i', b'm'], [b' ', b't', b'o'], [b' ', b'p', b'i', b'c', b'k'], [b' ', b'i', b't'], [b' ', b'u', b'p'], [b' ', b'a', b'n', b'd'], [b' ', b't', b'a', b'k', b'e'], [b' ', b'i', b't'], [b' ', b'h', b'o', b'm', b'e'], [b' ', b't', b'o'], [b' ', b's', b'h', b'o', b'w'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'a', b'm', b'i', b'l', b'y'], [b'.'], [b' ', b'S', b'o'], [b' ', b'B', b'o', b'b'], [b' ', b'c', b'a', b'r', b'e', b'f', b'u', b'l', b'l', b'y'], [b' ', b'p', b'i', b'c', b'k', b'e', b'd'], [b' ', b'u', b'p'], [b' ', b't', b'h', b'e'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b'l', b'y'], [b' ', b't', b'h', b'u', b'm', b'b'], [b' ', b'a', b'n', b'd'], [b' ', b'c', b'a', b'r', b'r', b'i', b'e', b'd'], [b' ', b'i', b't'], [b' ', b'b', b'a', b'c', b'k'], [b' ', b'h', b'o', b'm', b'e'], [b'.'], [b' ', b'W', b'h', b'e', b'n'], [b' ', b'h', b'e'], [b' ', b'a', b'r', b'r', b'i', b'v', b'e', b'd'], [b','], [b' ', b'B', b'o', b'b'], [b' ', b'h', b'a', b'p', b'p', b'i', b'l', b'y'], [b' ', b's', b'h', b'o', b'w', b'e', b'd'], [b' ', b't', b'h', b'e'], [b' ', b't', b'h', b'u', b'm', b'b'], [b' ', b't', b'o'], [b' ', b'h', b'i', b's'], [b' ', b'f', b'a', b'm', b'i', b'l', b'y'], [b'.'], [b' ', b'H', b'i', b's'], [b' ', b'd', b'a', b'd'], [b' ', b'w', b'a', b's'], [b' ', b'a', b'm', b'a', b'z', b'e', b'd'], [b' ', b'a', b'n', b'd'], [b' ', b'h', b'u', b'g', b'g', b'e', b'd'], [b' ', b'B', b'o', b'b'], [b' ', b't', b'o'], [b' ', b's', b'h', b'o', b'w'], [b' ', b'h', b'i', b's'], [b' ', b'a', b'p', b'p', b'r', b'e', b'c', b'i', b'a', b't', b'i', b'o', b'n'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'F', b'r', b'o', b'm'], [b' ', b't', b'h', b'a', b't'], [b' ', b'd', b'a', b'y'], [b' ', b'o', b'n'], [b' ', b'B', b'o', b'b'], [b' ', b'a', b'l', b'w', b'a', b'y', b's'], [b' ', b'k', b'e', b'p', b't'], [b' ', b't', b'h', b'e'], [b' ', b'b', b'i', b'g'], [b','], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b'l', b'y'], [b' ', b't', b'h', b'u', b'm', b'b'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'h', b'i', b'm'], [b' ', b'a', b's'], [b' ', b'a'], [b' ', b'r', b'e', b'm', b'i', b'n', b'd', b'e', b'r'], [b' ', b't', b'h', b'a', b't'], [b' ', b's', b'p', b'e', b'c', b'i', b'a', b'l'], [b' ', b't', b'h', b'i', b'n', b'g', b's'], [b' ', b'c', b'a', b'n'], [b' ', b'b', b'e'], [b' ', b'f', b'o', b'u', b'n', b'd'], [b' ', b'a', b'n', b'y', b'w', b'h', b'e', b'r', b'e'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'<', b'|'], [b'e', b'n', b'd', b'o', b'f', b't', b'e', b'x', b't'], [b'|', b'>'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'c', b'e'], [b' ', b'u', b'p', b'o', b'n'], [b' ', b'a'], [b' ', b't', b'i', b'm', b'e'], [b','], [b' ', b'i', b'n'], [b' ', b'a'], [b' ', b's', b'm', b'a', b'l', b'l'], [b' ', b'h', b'o', b'u', b's', b'e'], [b','], [b' ', b't', b'h', b'e', b'r', b'e'], [b' ', b'l', b'i', b'v', b'e', b'd'], [b' ', b'a'], [b' ', b'l', b'i', b't', b't', b'l', b'e'], [b' ', b'g', b'i', b'r', b'l'], [b' ', b'n', b'a', b'm', b'e', b'd'], [b' ', b'L', b'u', b'c', b'y'], [b'.'], [b' ', b'L', b'u', b'c', b'y'], [b' ', b'l', b'o', b'v', b'e', b'd'], [b' ', b't', b'h', b'e'], [b' ', b'c', b'o', b'l', b'o', b'r'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b'.'], [b' ', b'S', b'h', b'e'], [b' ', b'h', b'a', b'd'], [b' ', b'a', b'n'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b' ', b'd', b'r', b'e', b's', b's'], [b','], [b' ', b'a', b'n'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b' ', b'b', b'a', b'l', b'l'], [b','], [b' ', b'a', b'n', b'd'], [b' ', b'e', b'v', b'e', b'n'], [b' ', b'a', b'n'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b' ', b'c', b'a', b't'], [b'.'], [b' ', b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'L', b'u', b'c', b'y'], [b' ', b'm', b'e', b't'], [b' ', b'a'], [b' ', b'n', b'e', b'w'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd'], [b'.'], [b' ', b'T', b'h', b'i', b's'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd'], [b' ', b'w', b'a', b's'], [b' ', b'n', b'o', b't'], [b' ', b'l', b'i', b'k', b'e'], [b' ', b'o', b't', b'h', b'e', b'r'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd', b's'], [b'.'], [b' ', b'I', b't'], [b' ', b'w', b'a', b's'], [b' ', b'a'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b'.'], [b' ', b'T', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b' ', b'w', b'a', b's'], [b' ', b'v', b'e', b'r', b'y'], [b' ', b'n', b'i', b'c', b'e'], [b' ', b'a', b'n', b'd'], [b' ', b'l', b'i', b'k', b'e', b'd'], [b' ', b't', b'o'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'L', b'u', b'c', b'y'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'O', b'n', b'e'], [b' ', b'd', b'a', b'y'], [b','], [b' ', b'L', b'u', b'c', b'y'], [b' ', b'a', b'n', b'd'], [b' ', b't', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b' ', b'w', b'e', b'r', b'e'], [b' ', b'p', b'l', b'a', b'y', b'i', b'n', b'g'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'h', b'e', b'r'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b' ', b'b', b'a', b'l', b'l'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'w', b'e', b'r', b'e'], [b' ', b'h', b'a', b'v', b'i', b'n', b'g'], [b' ', b's', b'o'], [b' ', b'm', b'u', b'c', b'h'], [b' ', b'f', b'u', b'n'], [b'.'], [b' ', b'T', b'h', b'e', b'n'], [b','], [b' ', b'L', b'u', b'c', b'y'], [b"'", b's'], [b' ', b'm', b'o', b'm'], [b' ', b'c', b'a', b'l', b'l', b'e', b'd'], [b' ', b'h', b'e', b'r'], [b' ', b'f', b'o', b'r'], [b' ', b'd', b'i', b'n', b'n', b'e', b'r'], [b'.'], [b' ', b'L', b'u', b'c', b'y'], [b' ', b's', b'a', b'i', b'd'], [b' ', b't', b'o'], [b' ', b't', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b','], [b' ', b'"'], [b'I'], [b' ', b'h', b'a', b'v', b'e'], [b' ', b't', b'o'], [b' ', b'g', b'o'], [b' ', b'e', b'a', b't'], [b' ', b'n', b'o', b'w'], [b'.'], [b' ', b'W', b'i', b'l', b'l'], [b' ', b'y', b'o', b'u'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'w', b'i', b't', b'h'], [b' ', b'm', b'e'], [b' ', b'l', b'a', b't', b'e', b'r'], [b'?', b'"'], [b' ', b'T', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b' ', b'n', b'o', b'd', b'd', b'e', b'd'], [b' ', b'a', b'n', b'd'], [b' ', b's', b'm', b'i', b'l', b'e', b'd'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'A', b't'], [b' ', b'd', b'i', b'n', b'n', b'e', b'r'], [b','], [b' ', b'L', b'u', b'c', b'y'], [b' ', b't', b'o', b'l', b'd'], [b' ', b'h', b'e', b'r'], [b' ', b'm', b'o', b'm'], [b' ', b'a', b'b', b'o', b'u', b't'], [b' ', b't', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b'.'], [b' ', b'B', b'u', b't'], [b' ', b'h', b'e', b'r'], [b' ', b'm', b'o', b'm'], [b' ', b'd', b'i', b'd'], [b' ', b'n', b'o', b't'], [b' ', b'b', b'e', b'l', b'i', b'e', b'v', b'e'], [b' ', b'h', b'e', b'r'], [b'.'], [b' ', b'S', b'h', b'e'], [b' ', b's', b'a', b'i', b'd'], [b','], [b' ', b'"'], [b'S', b'p', b'i', b'r', b'i', b't', b's'], [b' ', b'a', b'r', b'e'], [b' ', b'n', b'o', b't'], [b' ', b'r', b'e', b'a', b'l'], [b','], [b' ', b'L', b'u', b'c', b'y'], [b'.'], [b' ', b'Y', b'o', b'u'], [b' ', b'h', b'a', b'v', b'e'], [b' ', b'a'], [b' ', b'b', b'i', b'g'], [b' ', b'i', b'm', b'a', b'g', b'i', b'n', b'a', b't', b'i', b'o', b'n'], [b'.', b'"'], [b' ', b'L', b'u', b'c', b'y'], [b' ', b'f', b'e', b'l', b't'], [b' ', b's', b'a', b'd'], [b' ', b't', b'h', b'a', b't'], [b' ', b'h', b'e', b'r'], [b' ', b'm', b'o', b'm'], [b' ', b'd', b'i', b'd'], [b' ', b'n', b'o', b't'], [b' ', b'b', b'e', b'l', b'i', b'e', b'v', b'e'], [b' ', b'h', b'e', b'r'], [b'.'], [b' ', b'A', b'f', b't', b'e', b'r'], [b' ', b'd', b'i', b'n', b'n', b'e', b'r'], [b','], [b' ', b's', b'h', b'e'], [b' ', b'w', b'e', b'n', b't'], [b' ', b'b', b'a', b'c', b'k'], [b' ', b't', b'o'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b'w', b'i', b't', b'h'], [b' ', b't', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b'.'], [b' ', b'T', b'h', b'e', b'y'], [b' ', b'p', b'l', b'a', b'y', b'e', b'd'], [b' ', b'w', b'i', b't', b'h'], [b' ', b't', b'h', b'e'], [b' ', b'o', b'r', b'a', b'n', b'g', b'e'], [b' ', b'b', b'a', b'l', b'l'], [b' ', b'a', b'n', b'd'], [b' ', b'h', b'a', b'd'], [b' ', b'l', b'o', b't', b's'], [b' ', b'o', b'f'], [b' ', b'f', b'u', b'n'], [b'.'], [b' ', b'L', b'u', b'c', b'y'], [b' ', b'k', b'n', b'e', b'w'], [b' ', b't', b'h', b'a', b't'], [b' ', b'e', b'v', b'e', b'n'], [b' ', b'i', b'f'], [b' ', b'o', b't', b'h', b'e', b'r', b's'], [b' ', b'i', b'g', b'n', b'o', b'r', b'e'], [b' ', b'h', b'e', b'r'], [b' ', b'f', b'r', b'i', b'e', b'n', b'd'], [b','], [b' ', b't', b'h', b'e'], [b' ', b's', b'p', b'i', b'r', b'i', b't'], [b' ', b'w', b'a', b's'], [b' ', b'r', b'e', b'a', b'l'], [b' ', b'a', b'n', b'd'], [b' ', b't', b'h', b'e', b'y'], [b' ', b'c', b'o', b'u', b'l', b'd'], [b' ', b'p', b'l', b'a', b'y'], [b' ', b't', b'o', b'g', b'e', b't', b'h', b'e', b'r'], [b'.'], [b'\n']]
+
+
+pre_tokens_list: 
+
+ [[b'<', b'|'], [b'e', b'n', b'd', b'o', b'f', b't', b'e', b'x', b't'], [b'|', b'>'], [b'\n']]
+PASSED
+
+============================== 1 passed in 6.07s ===============================

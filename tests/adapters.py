@@ -9,7 +9,7 @@ import torch
 from jaxtyping import Bool, Float, Int
 from torch import Tensor
 
-
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def run_linear(
     d_in: int,
@@ -29,9 +29,20 @@ def run_linear(
     Returns:
         Float[Tensor, "... d_out"]: The transformed output of your linear module.
     """
+    from cs336_basics.linear import Linear
+    # return Linear(d_in, d_out)(in_features)
+    # raise NotImplementedError
+    weights = weights.to(device)
+    in_features = in_features.to(device)
 
-    raise NotImplementedError
+    model = Linear(d_in, d_out, device, torch.float32)
+    # ↓ compare from torch.nn.Linear, the authentic implementation
+    # from torch.nn import Linear
+    # model = Linear(d_in, d_out, False, device, torch.float32)
+    
+    model.load_state_dict({"weight": weights})
 
+    return model(in_features)
 
 def run_embedding(
     vocab_size: int,
@@ -51,8 +62,19 @@ def run_embedding(
     Returns:
         Float[Tensor, "... d_model"]: Batch of embeddings returned by your Embedding layer.
     """
-
-    raise NotImplementedError
+    # from torch.nn import Embedding
+    from cs336_basics.embedding import Embedding
+    token_ids = token_ids.to(device)
+    weights = weights.to(device)
+    model = Embedding(
+        num_embeddings=vocab_size, 
+        embedding_dim=d_model, 
+        device=device, 
+        dtype=torch.float32
+    )
+    
+    model.load_state_dict({"embedding": weights})
+    return model(token_ids)
 
 
 def run_swiglu(
@@ -84,7 +106,17 @@ def run_swiglu(
     # swiglu.w1.weight.data = w1_weight
     # swiglu.w2.weight.data = w2_weight
     # swiglu.w3.weight.data = w3_weight
-    raise NotImplementedError
+    from cs336_basics.SwiGLU import SwiGLU
+    w1_weight = w1_weight.to(device)
+    w2_weight = w2_weight.to(device)
+    w3_weight = w3_weight.to(device)
+    in_features = in_features.to(device)
+    swiglu = SwiGLU(w1_weight, w2_weight, w3_weight, d_model, d_ff)
+    swiglu.w1.weight.data = w1_weight
+    swiglu.w2.weight.data = w2_weight
+    swiglu.w3.weight.data = w3_weight    
+    
+    return swiglu(in_features)
 
 
 def run_scaled_dot_product_attention(
@@ -379,7 +411,18 @@ def run_rmsnorm(
         Float[Tensor,"... d_model"]: Tensor of with the same shape as `in_features` with the output of running
         RMSNorm of the `in_features`.
     """
-    raise NotImplementedError
+    from cs336_basics.rms_layer_norm import RMSLayerNorm 
+
+    weights = weights.to(device)
+    in_features = in_features.to(device)    
+    model = RMSLayerNorm(
+        d_model=d_model, 
+        eps=eps, 
+        device=device, 
+        dtype=torch.float32                         
+    )    
+    model.load_state_dict({"weights": weights})
+    return model(in_features)
 
 
 def run_silu(in_features: Float[Tensor, " ..."]) -> Float[Tensor, " ..."]:

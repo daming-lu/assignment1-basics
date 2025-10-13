@@ -193,6 +193,7 @@ def numpy_snapshot(request):
 
 @pytest.fixture
 def ts_state_dict(request):
+    # import pdb;pdb.set_trace()
     from .common import FIXTURES_PATH
     import json
 
