@@ -28,13 +28,15 @@ class SwiGLU(nn.Module):
         
         """
         # Project to hidden (d_ff)
-        x1 = einsum(in_features, self.w1, "... d_model, d_ff d_model -> ... d_ff")
-        x3 = einsum(in_features, self.w3, "... d_model, d_ff d_model -> ... d_ff")
+        x1 = einsum(in_features, self.w1.weight, "... d_model, d_ff d_model -> ... d_ff")
+        x3 = einsum(in_features, self.w3.weight, "... d_model, d_ff d_model -> ... d_ff")
 
         # Apply SwiGLU activation
-        x = torch.nn.functional.silu(x3) * x1
+        silu_x1 = x1 / (1 + torch.exp(-x1))
+        # x = torch.nn.functional.silu(x1) * x3
+        x = silu_x1 * x3
 
         # Project back to model dimension
-        out = einsum(in_features, self.w2, "... d_ff, d_model d_ff -> ... d_model")
+        out = einsum(x, self.w2.weight, "... d_ff, d_model d_ff -> ... d_model")
         return out
     
