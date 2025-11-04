@@ -139,6 +139,7 @@ def run_scaled_dot_product_attention(
     Returns:
         Float[Tensor, " ... queries d_v"]: Output of SDPA
     """
+    import pdb;pdb.set_trace()
     d_k = Q.shape[-1]
     d_v = V.shape[-1]
     from cs336_basics.attention import Attention
@@ -178,7 +179,43 @@ def run_multihead_self_attention(
         Float[Tensor, " ... sequence_length d_out"]: Tensor with the output of running your optimized, batched multi-headed attention
         implementation with the given QKV projection weights and input features.
     """
-    raise NotImplementedError
+    import pdb;pdb.set_trace()
+    from cs336_basics.multi_head_self_attention import CausalMultiHeadSelfAttention
+    d_k = q_proj_weight.shape[-2]
+    d_v = o_proj_weight.shape[-1]
+    # d_model = o_proj_weight.shape[-2]
+
+    # Create the module
+    mha = CausalMultiHeadSelfAttention(d_model, num_heads)
+    
+    # Load the provided weights into the module
+    # The weights are provided as stacked weights for all heads
+    # q_proj_weight shape: (num_heads * d_k, d_in)
+    # We need to assign them to the Linear layers
+    with torch.no_grad():
+        mha.W_Q.weight.copy_(q_proj_weight)
+        mha.W_K.weight.copy_(k_proj_weight)
+        mha.W_V.weight.copy_(v_proj_weight)
+        mha.W_O.weight.copy_(o_proj_weight)
+    
+    # Run forward pass
+    mha.eval()
+    with torch.no_grad():
+        output = mha(in_features)
+    return output
+
+    # # cmhsa = CausalMultiHeadSelfAttention(
+    # #     d_k=d_k, d_v=d_v, d_model=d_model, 
+    # #     num_heads=num_heads)
+    
+    # # return cmhsa(
+    # #     Q=q_proj_weight,K=k_proj_weight,V=v_proj_weight,
+    # #     O=o_proj_weight)(in_features)
+    # import torch.nn.MultiheadAttention
+    # mha = MultiheadAttention(d_model, num_heads)
+    # import torch.nn.MultiheadAttention
+    
+    # return mha(q_proj_weight,k_proj_weight,v_proj_weight)(in_features)
 
 
 def run_multihead_self_attention_with_rope(
