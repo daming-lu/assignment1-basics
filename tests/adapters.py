@@ -179,7 +179,7 @@ def run_multihead_self_attention(
         Float[Tensor, " ... sequence_length d_out"]: Tensor with the output of running your optimized, batched multi-headed attention
         implementation with the given QKV projection weights and input features.
     """
-    import pdb;pdb.set_trace()
+    # import pdb;pdb.set_trace()
     from cs336_basics.multi_head_self_attention import CausalMultiHeadSelfAttention
     d_k = q_proj_weight.shape[-2]
     d_v = o_proj_weight.shape[-1]
@@ -255,7 +255,32 @@ def run_multihead_self_attention_with_rope(
         Float[Tensor, " ... sequence_length d_out"]: Tensor with the output of running your optimized, batched multi-headed attention
         implementation with the given QKV projection weights and input features.
     """
-    raise NotImplementedError
+    from cs336_basics.RoPE import RotaryPositionalEmbedding
+    head_embedding_dimension = d_model // num_heads
+    rope = RotaryPositionalEmbedding(theta, head_embedding_dimension, max_seq_len)
+
+    from cs336_basics.multi_head_self_attention import CausalMultiHeadSelfAttention
+    # Create the module
+    mha = CausalMultiHeadSelfAttention(d_model, num_heads)
+    
+    import ipdb;ipdb.set_trace()
+    # Load the provided weights into the module
+    # The weights are provided as stacked weights for all heads
+    # q_proj_weight shape: (num_heads * d_k, d_in)
+    # We need to assign them to the Linear layers
+    q_proj_weight_rope = rope(q_proj_weight, token_positions)
+    k_proj_weight_rope = rope(k_proj_weight, token_positions)
+    with torch.no_grad():
+        mha.W_Q.weight.copy_(q_proj_weight_rope)
+        mha.W_K.weight.copy_(k_proj_weight_rope)
+        mha.W_V.weight.copy_(v_proj_weight)
+        mha.W_O.weight.copy_(o_proj_weight)
+
+    # Run forward pass
+    mha.eval()
+    with torch.no_grad():
+        output = mha(in_features)
+    return output                     
 
 
 def run_rope(

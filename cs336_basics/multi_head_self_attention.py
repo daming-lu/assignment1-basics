@@ -4,6 +4,7 @@ from jaxtyping import Float
 from torch import Tensor
 from einops import einsum, rearrange
 from cs336_basics.attention import Attention
+from cs336_basics.RoPE import RotaryPositionalEmbedding
 
 
 class CausalMultiHeadSelfAttention(nn.Module):
@@ -16,6 +17,7 @@ class CausalMultiHeadSelfAttention(nn.Module):
     """
     
     def __init__(self, d_model: int, num_heads: int):
+        # import ipdb;ipdb.set_trace()
         super().__init__()
         assert d_model % num_heads == 0, "d_model must be divisible by num_heads"
         
@@ -23,6 +25,7 @@ class CausalMultiHeadSelfAttention(nn.Module):
         self.num_heads = num_heads
         self.d_k = d_model // num_heads  # d_k = d_v = d_model / num_heads
         self.d_v = d_model // num_heads
+        self.head_embedding_dimension = d_model // num_heads
         
         # Learnable projection matrices
         # W_Q, W_K, W_V: (h * d_k) x d_model
