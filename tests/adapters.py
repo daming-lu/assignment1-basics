@@ -255,32 +255,49 @@ def run_multihead_self_attention_with_rope(
         Float[Tensor, " ... sequence_length d_out"]: Tensor with the output of running your optimized, batched multi-headed attention
         implementation with the given QKV projection weights and input features.
     """
+    # import ipdb;ipdb.set_trace()
     from cs336_basics.RoPE import RotaryPositionalEmbedding
-    head_embedding_dimension = d_model // num_heads
-    rope = RotaryPositionalEmbedding(theta, head_embedding_dimension, max_seq_len)
-
-    from cs336_basics.multi_head_self_attention import CausalMultiHeadSelfAttention
-    # Create the module
-    mha = CausalMultiHeadSelfAttention(d_model, num_heads)
+    from cs336_basics.attention import Attention
+    from einops import einsum, rearrange
     
-    import ipdb;ipdb.set_trace()
-    # Load the provided weights into the module
-    # The weights are provided as stacked weights for all heads
-    # q_proj_weight shape: (num_heads * d_k, d_in)
-    # We need to assign them to the Linear layers
-    q_proj_weight_rope = rope(q_proj_weight, token_positions)
-    k_proj_weight_rope = rope(k_proj_weight, token_positions)
-    with torch.no_grad():
-        mha.W_Q.weight.copy_(q_proj_weight_rope)
-        mha.W_K.weight.copy_(k_proj_weight_rope)
-        mha.W_V.weight.copy_(v_proj_weight)
-        mha.W_O.weight.copy_(o_proj_weight)
+# Derived dimensions
+    d_k = d_model // num_heads
+    d_v = d_model // num_heads
 
-    # Run forward pass
-    mha.eval()
-    with torch.no_grad():
-        output = mha(in_features)
-    return output                     
+    # --- Step 1: Compute projections ---
+    # (..., seq_len, d_in) -> (..., seq_len, d_k)
+    # Q = torch.einsum("... s d, k d -> ... s k", in_features, q_proj_weight)
+    # K = torch.einsum("... s d, k d -> ... s k", in_features, k_proj_weight)
+    # V = torch.einsum("... s d, v d -> ... s v", in_features, v_proj_weight)
+    Q = einsum(in_features, q_proj_weight, "... s d, k d -> ... s k")
+    K = einsum(in_features, k_proj_weight, "... s d, k d -> ... s k")
+    V = einsum(in_features, v_proj_weight, "... s d, v d -> ... s v")
+
+    # --- Step 2: Split into heads ---
+    Q = rearrange(Q, "... s (h d) -> ... h s d", h=num_heads)
+    K = rearrange(K, "... s (h d) -> ... h s d", h=num_heads)
+    V = rearrange(V, "... s (h d) -> ... h s d", h=num_heads)
+
+    # --- Step 3: Apply RoPE to Q, K ---
+    if token_positions is None:
+        token_positions = torch.arange(Q.shape[-2], device=in_features.device)
+    rope = RotaryPositionalEmbedding(theta, d_k, max_seq_len, device=in_features.device)
+    Q = rope(Q, token_positions)
+    K = rope(K, token_positions)
+
+    # --- Step 4: Causal mask ---
+    seq_len = in_features.shape[-2]
+    causal_mask = torch.tril(torch.ones(seq_len, seq_len, device=in_features.device, dtype=torch.bool))
+
+    # --- Step 5: Attention ---
+    attention = Attention(d_k, d_v)
+    attn_output = attention(Q, K, V, mask=causal_mask)  # (..., num_heads, seq_len, d_v)
+
+    # --- Step 6: Merge heads and apply output projection ---
+    attn_output = rearrange(attn_output, "... h s d -> ... s (h d)")
+    output = torch.einsum("... s v, d v -> ... s d", attn_output, o_proj_weight)
+
+    return output                  
 
 
 def run_rope(
@@ -302,6 +319,7 @@ def run_rope(
     Returns:
         Float[Tensor, " ... sequence_length d_k"]: Tensor with RoPEd input.
     """
+    # import ipdb;ipdb.set_trace()
     from cs336_basics.RoPE import RotaryPositionalEmbedding
     rope = RotaryPositionalEmbedding(theta, d_k, max_seq_len)
     return rope(in_query_or_key, token_positions)
