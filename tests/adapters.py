@@ -383,7 +383,7 @@ def run_transformer_block(
                 Shape is (d_ff, d_model).
             - `ffn.w3.weight`
                 Weight of the third linear transformation in the FFN.
-                Shape is (d_model, d_ff).
+                Shape is (d_ff, d_model).
             - `ln2.weight`
                 Weights of affine transform for the second RMSNorm
                 applied in the transformer block.
@@ -395,7 +395,61 @@ def run_transformer_block(
         Float[Tensor, "batch sequence_length d_model"] Tensor with the output of
         running the Transformer block on the input features while using RoPE.
     """
-    raise NotImplementedError
+    # Move inputs and weights to the working device
+    x = in_features.to(device)
+    q_w = weights["attn.q_proj.weight"].to(device)
+    k_w = weights["attn.k_proj.weight"].to(device)
+    v_w = weights["attn.v_proj.weight"].to(device)
+    o_w = weights["attn.output_proj.weight"].to(device)
+    ln1_w = weights["ln1.weight"].to(device)
+    ln2_w = weights["ln2.weight"].to(device)
+    w1_w = weights["ffn.w1.weight"].to(device)
+    w2_w = weights["ffn.w2.weight"].to(device)
+    w3_w = weights["ffn.w3.weight"].to(device)
+
+    # 1) Pre-norm before attention
+    from cs336_basics.rms_layer_norm import RMSLayerNorm
+    ln1 = RMSLayerNorm(d_model=d_model, eps=1e-5, device=device, dtype=torch.float32)
+    ln1.load_state_dict({"weights": ln1_w})
+    x_norm = ln1(x)
+
+    # 2) Multi-head self-attention with RoPE (causal)
+    seq_len = x.shape[-2]
+    token_positions = torch.arange(seq_len, device=x.device).unsqueeze(0)
+    attn_out = run_multihead_self_attention_with_rope(
+        d_model=d_model,
+        num_heads=num_heads,
+        max_seq_len=max_seq_len,
+        theta=theta,
+        q_proj_weight=q_w,
+        k_proj_weight=k_w,
+        v_proj_weight=v_w,
+        o_proj_weight=o_w,
+        in_features=x_norm,
+        token_positions=token_positions,
+    )
+
+    # Residual connection
+    x = x + attn_out
+
+    # 3) Pre-norm before FFN
+    ln2 = RMSLayerNorm(d_model=d_model, eps=1e-5, device=device, dtype=torch.float32)
+    ln2.load_state_dict({"weights": ln2_w})
+    x_norm2 = ln2(x)
+
+    # 4) SwiGLU feed-forward network
+    from cs336_basics.SwiGLU import SwiGLU
+    ffn = SwiGLU(w1_w, w2_w, w3_w, d_model=d_model, d_ff=d_ff)
+    # Manually set weights in case of state dict name differences
+    ffn.w1.weight.data = w1_w
+    ffn.w2.weight.data = w2_w
+    ffn.w3.weight.data = w3_w
+    ffn_out = ffn(x_norm2)
+
+    # 5) Residual connection
+    out = x + ffn_out
+
+    return out
 
 
 def run_transformer_lm(
@@ -453,13 +507,13 @@ def run_transformer_lm(
                 Shape is (d_model,).
             - `layers.{num_layers}.ffn.w1.weight`
                 Weight of the first linear transformation in the FFN.
-                Shape is (d_model, d_ff).
+                Shape is (d_ff, d_model).
             - `layers.{num_layers}.ffn.w2.weight`
                 Weight of the second linear transformation in the FFN.
-                Shape is (d_ff, d_model).
+                Shape is (d_model, d_ff).
             - `layers.{num_layers}.ffn.w3.weight`
                 Weight of the third linear transformation in the FFN.
-                Shape is (d_model, d_ff).
+                Shape is (d_ff, d_model).
             - `layers.{num_layers}.ln2.weight`
                 Weights of affine transform for the second RMSNorm
                 applied in the transformer block.
@@ -477,7 +531,75 @@ def run_transformer_lm(
         Float[Tensor, "batch_size sequence_length vocab_size"]: Tensor with the predicted unnormalized
         next-word distribution for each token.
     """
-    raise NotImplementedError
+    # Move inputs to device
+    token_ids = in_indices.to(device)
+
+    # 1) Token embeddings
+    embed_weight = weights["token_embeddings.weight"].to(device)
+    x = run_embedding(vocab_size=vocab_size, d_model=d_model, weights=embed_weight, token_ids=token_ids)
+
+    # 2) Pass through each Transformer layer
+    for layer_idx in range(num_layers):
+        # Gather layer-specific weights
+        q_w = weights[f"layers.{layer_idx}.attn.q_proj.weight"].to(device)
+        k_w = weights[f"layers.{layer_idx}.attn.k_proj.weight"].to(device)
+        v_w = weights[f"layers.{layer_idx}.attn.v_proj.weight"].to(device)
+        o_w = weights[f"layers.{layer_idx}.attn.output_proj.weight"].to(device)
+        ln1_w = weights[f"layers.{layer_idx}.ln1.weight"].to(device)
+        ln2_w = weights[f"layers.{layer_idx}.ln2.weight"].to(device)
+        w1_w = weights[f"layers.{layer_idx}.ffn.w1.weight"].to(device)
+        w2_w = weights[f"layers.{layer_idx}.ffn.w2.weight"].to(device)
+        w3_w = weights[f"layers.{layer_idx}.ffn.w3.weight"].to(device)
+
+        # Pre-norm before attention
+        from cs336_basics.rms_layer_norm import RMSLayerNorm
+        ln1 = RMSLayerNorm(d_model=d_model, eps=1e-5, device=device, dtype=torch.float32)
+        ln1.load_state_dict({"weights": ln1_w})
+        x_norm = ln1(x)
+
+        # Multi-head self-attention with RoPE
+        seq_len = x_norm.shape[-2]
+        token_positions = torch.arange(seq_len, device=x_norm.device).unsqueeze(0)
+        attn_out = run_multihead_self_attention_with_rope(
+            d_model=d_model,
+            num_heads=num_heads,
+            max_seq_len=context_length,
+            theta=rope_theta,
+            q_proj_weight=q_w,
+            k_proj_weight=k_w,
+            v_proj_weight=v_w,
+            o_proj_weight=o_w,
+            in_features=x_norm,
+            token_positions=token_positions,
+        )
+        x = x + attn_out
+
+        # Pre-norm before FFN
+        ln2 = RMSLayerNorm(d_model=d_model, eps=1e-5, device=device, dtype=torch.float32)
+        ln2.load_state_dict({"weights": ln2_w})
+        x_norm2 = ln2(x)
+
+        # SwiGLU feed-forward network
+        from cs336_basics.SwiGLU import SwiGLU
+        ffn = SwiGLU(w1_w, w2_w, w3_w, d_model=d_model, d_ff=d_ff)
+        ffn.w1.weight.data = w1_w
+        ffn.w2.weight.data = w2_w
+        ffn.w3.weight.data = w3_w
+        ffn_out = ffn(x_norm2)
+        x = x + ffn_out
+
+    # 3) Final RMSNorm
+    ln_final_w = weights["ln_final.weight"].to(device)
+    from cs336_basics.rms_layer_norm import RMSLayerNorm
+    ln_final = RMSLayerNorm(d_model=d_model, eps=1e-5, device=device, dtype=torch.float32)
+    ln_final.load_state_dict({"weights": ln_final_w})
+    x_final = ln_final(x)
+
+    # 4) LM head projection to vocab logits
+    lm_head_w = weights["lm_head.weight"].to(device)
+    logits = torch.einsum("b s d, v d -> b s v", x_final, lm_head_w)
+
+    return logits
 
 
 def run_rmsnorm(
