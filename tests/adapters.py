@@ -705,7 +705,26 @@ def run_cross_entropy(
     Returns:
         Float[Tensor, ""]: The average cross-entropy loss across examples.
     """
-    raise NotImplementedError
+    # Support arbitrary leading batch-like dimensions before the final vocab dimension
+    # Compute numerically-stable negative log-softmax for the target index.
+    # 1) Shift by the maximum logit for numerical stability
+    import ipdb;ipdb.set_trace()
+    max_logits = torch.amax(inputs, dim=-1, keepdim=True)
+    shifted = inputs - max_logits
+
+    # 2) Compute log-sum-exp on the shifted logits
+    lse = torch.log(torch.sum(torch.exp(shifted), dim=-1))
+
+    # 3) Gather the shifted logit corresponding to the target class
+    # Handle arbitrary batch dims by gathering along the last (vocab) dimension
+    target_shifted = shifted.gather(-1, targets.unsqueeze(-1)).squeeze(-1)
+
+    # 4) Cross-entropy for each example: logsumexp - shifted_target
+    # This cancels unnecessary log/exp compared to computing log(softmax)
+    loss_per_example = lse - target_shifted
+
+    # 5) Return mean across all batch-like dimensions
+    return loss_per_example.mean()
 
 
 def run_gradient_clipping(parameters: Iterable[torch.nn.Parameter], max_l2_norm: float) -> None:
