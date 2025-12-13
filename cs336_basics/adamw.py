@@ -28,8 +28,8 @@ class AdamW(torch.optim.Optimizer):
         """Performs a single optimization step."""
         loss = None
         if closure is not None:
-            loss = closure()    
-        import ipdb;ipdb.set_trace()
+            loss = closure()
+        # import ipdb;ipdb.set_trace()
         for group in self.param_groups:
             # print('group:', group)
             """
