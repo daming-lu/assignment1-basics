@@ -16,7 +16,7 @@ class CausalMultiHeadSelfAttention(nn.Module):
         num_heads: Number of heads to use in multi-head self-attention
     """
     
-    def __init__(self, d_model: int, num_heads: int):
+    def __init__(self, d_model: int, num_heads: int, rope_theta: float | None = None, max_seq_len: int | None = None, device=None):
         # import ipdb;ipdb.set_trace()
         super().__init__()
         assert d_model % num_heads == 0, "d_model must be divisible by num_heads"
@@ -38,6 +38,9 @@ class CausalMultiHeadSelfAttention(nn.Module):
         
         # Initialize the Attention module
         self.attention = Attention(self.d_k, self.d_v)
+        self.rope = None
+        if rope_theta is not None and max_seq_len is not None:
+            self.rope = RotaryPositionalEmbedding(theta=rope_theta, d_k=self.d_k, max_seq_len=max_seq_len, device=device)
     
     def forward(
         self,
@@ -65,6 +68,10 @@ class CausalMultiHeadSelfAttention(nn.Module):
         Q = rearrange(Q, '... s (h d) -> ... h s d', h=self.num_heads)
         K = rearrange(K, '... s (h d) -> ... h s d', h=self.num_heads)
         V = rearrange(V, '... s (h d) -> ... h s d', h=self.num_heads)
+        if self.rope is not None:
+            token_positions = torch.arange(seq_len, device=x.device)
+            Q = self.rope(Q, token_positions)
+            K = self.rope(K, token_positions)
         
         # Create causal mask: lower triangular matrix
         # mask[i, j] = True if i >= j (token i can attend to token j)

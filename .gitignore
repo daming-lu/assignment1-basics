@@ -166,3 +166,7 @@ cython_debug/
 data/
 lab/
 out?.txt
+cs336_spring2025_assignment1_basics.pdf
+
+.DS_Store
+
