@@ -169,6 +169,7 @@ def main():
     parser.add_argument("--log_dir", type=str, default="runs")
     parser.add_argument("--run_name", type=str, default="")
     parser.add_argument("--log_interval", type=int, default=10)
+    parser.add_argument("--rebuild_tokens", action="store_true")
     parser.add_argument("--decode_prompt", type=str, default="")
     parser.add_argument("--max_new_tokens", type=int, default=64)
     parser.add_argument("--temperature", type=float, default=1.0)
@@ -184,18 +185,30 @@ def main():
             raise SystemExit("Provide --train_tokens_npy or --train_txt")
         if not valid_tokens_path:
             raise SystemExit("Provide --valid_tokens_npy or --valid_txt")
-        if not os.path.exists(train_tokens_path):
-            if not args.train_txt:
-                raise SystemExit("Missing --train_txt to build train tokens")
+        if args.rebuild_tokens:
+            if not args.train_txt or not args.valid_txt:
+                raise SystemExit("--rebuild_tokens requires --train_txt and --valid_txt")
             os.makedirs(os.path.dirname(train_tokens_path), exist_ok=True)
-            build_tokens_npy(args.train_txt, train_tokens_path, args.tokenizer_type, args.vocab_path or None, args.merges_path or None, args.special_tokens)
-        if not os.path.exists(valid_tokens_path):
-            if not args.valid_txt:
-                raise SystemExit("Missing --valid_txt to build valid tokens")
             os.makedirs(os.path.dirname(valid_tokens_path), exist_ok=True)
+            build_tokens_npy(args.train_txt, train_tokens_path, args.tokenizer_type, args.vocab_path or None, args.merges_path or None, args.special_tokens)
             build_tokens_npy(args.valid_txt, valid_tokens_path, args.tokenizer_type, args.vocab_path or None, args.merges_path or None, args.special_tokens)
+        else:
+            if not os.path.exists(train_tokens_path):
+                if not args.train_txt:
+                    raise SystemExit("Missing --train_txt to build train tokens")
+                os.makedirs(os.path.dirname(train_tokens_path), exist_ok=True)
+                build_tokens_npy(args.train_txt, train_tokens_path, args.tokenizer_type, args.vocab_path or None, args.merges_path or None, args.special_tokens)
+            if not os.path.exists(valid_tokens_path):
+                if not args.valid_txt:
+                    raise SystemExit("Missing --valid_txt to build valid tokens")
+                os.makedirs(os.path.dirname(valid_tokens_path), exist_ok=True)
+                build_tokens_npy(args.valid_txt, valid_tokens_path, args.tokenizer_type, args.vocab_path or None, args.merges_path or None, args.special_tokens)
         train_tokens = load_tokens_memmap(train_tokens_path)
         valid_tokens = load_tokens_memmap(valid_tokens_path)
+        if train_tokens.shape[0] <= args.context_length:
+            raise SystemExit(f"Training tokens ({train_tokens.shape[0]}) <= context_length ({args.context_length}). Pass --rebuild_tokens to regenerate tokens or reduce --context_length.")
+        if valid_tokens.shape[0] <= args.context_length:
+            raise SystemExit(f"Validation tokens ({valid_tokens.shape[0]}) <= context_length ({args.context_length}). Pass --rebuild_tokens to regenerate tokens or reduce --context_length.")
 
     torch.manual_seed(42)
     model = TransformerLM(
