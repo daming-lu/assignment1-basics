@@ -108,32 +108,83 @@ with open(FILE_LOC, 'r') as f:
     print(vocab)
 
 print("\n\n--------------\n\n")
+
+def flatten_token(token):
+    """Convert a token (bytes or tuple) into a single bytes object"""
+    if isinstance(token, tuple):
+        return b''.join(flatten_token(t) for t in token)
+    return token
+
+clean_vocab = {
+    k:flatten_token(v) for k, v in vocab.items()
+}
+import pdb;pdb.set_trace()
+print('clean_vocab: ', clean_vocab)
 reversed_vocab = {
-    v: k for k, v in vocab.items()
+    v: k for k, v in clean_vocab.items()
 }
 # encode newest -> ne, west
 input1 = 'newest'
 input1_enc = [x.encode('utf-8') for x in input1]
 print(f'input1_enc: {input1_enc}')
 # import pdb;pdb.set_trace()
-while True:
-    found = False
-    new_input1_enc = []
-    i = 0
-    while i < len(input1_enc):
-        left = input1_enc[i] if isinstance(input1_enc[i], bytes) else b"".join(input1_enc[i])
-        if i + 1 < len(input1_enc):
-            right = input1_enc[i+1] if isinstance(input1_enc[i+1], bytes) else b"".join(input1_enc[i+1])
-            pair = (left, right)
-            if pair in reversed_vocab:
-                new_input1_enc.append(left + right)
-                i += 2
-                continue
-        new_input1_enc.append(left)
-        i += 1
-    if new_input1_enc == input1_enc:
-        break
-    input1_enc = new_input1_enc
-    print(f'input1_enc: {input1_enc}')
-    
-print(f'final input1_enc: {input1_enc}')    
+chosen_type = "TRAE"
+chosen_type = "claude"
+if chosen_type == "TRAE":
+
+    while True:
+        found = False
+        new_input1_enc = []
+        i = 0
+        while i < len(input1_enc):
+            left = input1_enc[i] if isinstance(input1_enc[i], bytes) else b"".join(input1_enc[i])
+            if i + 1 < len(input1_enc):
+                right = input1_enc[i+1] if isinstance(input1_enc[i+1], bytes) else b"".join(input1_enc[i+1])
+                pair = left+right
+                if pair in reversed_vocab:
+                    new_input1_enc.append(left + right)
+                    i += 2
+                    continue
+            new_input1_enc.append(left)
+            i += 1
+        if new_input1_enc == input1_enc:
+            break
+        input1_enc = new_input1_enc
+        print(f'input1_enc: {input1_enc}')
+        
+    print(f'final input1_enc: {input1_enc}')    
+elif chosen_type == "claude":
+    while True:
+        new_input1_enc = []
+        i = 0
+        found = False
+        
+        while i < len(input1_enc):
+            if i + 1 < len(input1_enc):
+                # Flatten both tokens to bytes, then create pair
+                curr_flat = flatten_token(input1_enc[i])
+                next_flat = flatten_token(input1_enc[i+1])
+                pair = curr_flat + next_flat
+                
+                if pair in reversed_vocab:
+                    # Store as tuple of the flattened bytes
+                    new_input1_enc.append(pair)
+                    found = True
+                    i += 2
+                    continue
+            
+            new_input1_enc.append(input1_enc[i])
+            i += 1
+        
+        if not found:
+            break
+        input1_enc = new_input1_enc
+        print(f'input1_enc: {input1_enc}')
+
+    print(f'final input1_enc: {input1_enc}')
+
+# map to ids and decode
+token_ids = [reversed_vocab[tok] for tok in input1_enc]
+print('token_ids: ', token_ids)
+decoded_bytes = b''.join(clean_vocab[i] for i in token_ids)
+print('decoded: ', decoded_bytes.decode('utf-8', errors='replace'))
