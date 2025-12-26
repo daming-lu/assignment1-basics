@@ -56,6 +56,8 @@ with open(FILE_LOC, 'r') as f:
                     dict_pair_bytes_to_int[pair] += freq
         print(dict_pair_bytes_to_int)
         print("\n")        
+        if len(dict_pair_bytes_to_int) == 0:
+            break
         max_value = max(dict_pair_bytes_to_int.values())  # Returns 9
         max_pairs = []
         for pair, freq in dict_pair_bytes_to_int.items():
@@ -104,4 +106,34 @@ with open(FILE_LOC, 'r') as f:
     # end of ITER
     print("\n")
     print(vocab)
-        
+
+print("\n\n--------------\n\n")
+reversed_vocab = {
+    v: k for k, v in vocab.items()
+}
+# encode newest -> ne, west
+input1 = 'newest'
+input1_enc = [x.encode('utf-8') for x in input1]
+print(f'input1_enc: {input1_enc}')
+# import pdb;pdb.set_trace()
+while True:
+    found = False
+    new_input1_enc = []
+    i = 0
+    while i < len(input1_enc):
+        left = input1_enc[i] if isinstance(input1_enc[i], bytes) else b"".join(input1_enc[i])
+        if i + 1 < len(input1_enc):
+            right = input1_enc[i+1] if isinstance(input1_enc[i+1], bytes) else b"".join(input1_enc[i+1])
+            pair = (left, right)
+            if pair in reversed_vocab:
+                new_input1_enc.append(left + right)
+                i += 2
+                continue
+        new_input1_enc.append(left)
+        i += 1
+    if new_input1_enc == input1_enc:
+        break
+    input1_enc = new_input1_enc
+    print(f'input1_enc: {input1_enc}')
+    
+print(f'final input1_enc: {input1_enc}')    
