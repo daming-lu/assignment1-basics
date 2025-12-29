@@ -48,15 +48,10 @@ def find_chunk_boundaries(
     # Make sure all boundaries are unique, but might be fewer than desired_num_chunks
     return sorted(set(chunk_boundaries))
 
-
-def read_chunk(filename, start, end):
-    with open(filename, "rb") as f:   # open a fresh handle per thread
-        f.seek(start)
-        return f.read(end - start).decode("utf-8", errors="ignore")
-
 ## Usage
 with open('../data/TinyStoriesV2-GPT4-valid.txt', "rb") as f:
-    num_processes = 4
+    num_processes = 8
+    # import pdb;pdb.set_trace()
     boundaries = find_chunk_boundaries(f, num_processes, b"<|endoftext|>")
     print(boundaries)
     # The following is a serial implementation, but you can parallelize this
@@ -72,6 +67,7 @@ with open('../data/TinyStoriesV2-GPT4-valid.txt', "rb") as f:
         print(f'{start} - {end}')
         f.seek(start)
         chunk = f.read(end - start).decode("utf-8", errors="ignore")
-        # print('chunk: ', chunk)
+        print('\n---\n\n')
+        print('chunk: ', chunk)
         # Run pre-tokenization on your chunk and store the counts for each pre-token
              

@@ -172,12 +172,19 @@ def train_bpe(
             chunk = f.read(end - start).decode("utf-8", errors="ignore")
             chunk_list.append(chunk)
     task_args = [(chunk, special_tokens, False) for chunk in chunk_list]
+
     with Pool(processes=num_processes) as pool:
         chunk_results = pool.map(process_chunk, task_args)
-    
     # 3. Compute BPE merges
     merges : list[tuple[bytes, bytes]] = []
     pre_tokens_bytes: list[list[bytes]] = [token for chunk in chunk_results for token in chunk]
+    """
+    Equivalent explicit version:
+    result = []
+    for chunk in chunk_results:
+        for token in chunk:
+            result.append(token)    
+    """
     counts = defaultdict(int)
     pair_to_indices = defaultdict(set)
     for idx, token in enumerate(pre_tokens_bytes):
@@ -188,6 +195,7 @@ def train_bpe(
 
     idx = len(vocab)
     while idx < vocab_size:
+        print(f'idx: {idx}')
         if not counts:
             break
             
@@ -233,6 +241,9 @@ def train_bpe(
             for i in range(len(token) - 1):
                 pair = (token[i], token[i + 1])
                 counts[pair] += 1
+                # if len(pair_to_indices[pair]) > 0:
+                #     print('bingo')
+                #     # import pdb;pdb.set_trace()
                 pair_to_indices[pair].add(j)
 
     return vocab, merges
@@ -287,61 +298,6 @@ def find_chunk_boundaries(
     # Make sure all boundaries are unique, but might be fewer than desired_num_chunks
     return sorted(set(chunk_boundaries))
 
-def find_chunk_boundaries_in_bytes(
-    text: bytes,
-    desired_num_chunks: int,
-    split_special_token: str
-) -> list[int]:
-    """
-    Chunk the input string into parts that can be processed independently.
-    May return fewer chunks if boundaries overlap or cannot be found exactly.
-
-    Args:
-        text_bytes (bytes): Input byte sequence to be chunked.
-        desired_num_chunks (int): Desired number of chunks.
-        split_special_token (str): Special token string to split on (e.g., "\n").
-
-    Returns:
-        list[int]: Sorted list of chunk boundary indices in the string.
-    """
-    text_len = len(text)
-    chunk_size = text_len // desired_num_chunks
-
-    # Initial equally spaced boundaries (string indices)
-    chunk_boundaries = [i * chunk_size for i in range(desired_num_chunks + 1)]
-    chunk_boundaries[-1] = text_len  # Ensure last boundary is at end
-
-    mini_chunk_size = 256  # number of characters to look ahead
-
-    for bi in range(1, len(chunk_boundaries) - 1):
-        initial_pos = chunk_boundaries[bi]
-        # Look ahead from initial_pos to find split_special_token
-        search_pos = initial_pos
-
-        while search_pos < text_len:
-            # Extract a mini chunk to search in
-            mini_chunk = text[search_pos:search_pos + mini_chunk_size]
-
-            # Find special token in mini_chunk
-            found_at = mini_chunk.find(split_special_token)
-            if found_at != -1:
-                # Adjust boundary to position of token found
-                true_pos = search_pos + found_at
-                chunk_boundaries[bi] = true_pos
-                break
-
-            # If token not found in mini_chunk, advance by mini_chunk_size
-            search_pos += mini_chunk_size
-        else:
-            # If we reached end of text without finding token, set boundary to text_len
-            chunk_boundaries[bi] = text_len
-
-    # Remove duplicates, sort, and return
-    return sorted(set(chunk_boundaries))
-
-
-
-
 def process_chunk(args: tuple[str, list[str], bool]) -> list[list[bytes]]:
     chunk, special_tokens, keep_special_tokens = args
     """
@@ -387,11 +343,13 @@ def save_bpe_model(vocab: dict[int, bytes], merges: list[tuple[bytes, bytes]], o
 
     # Save vocab
     vocab_serialized = {str(i): token.decode('utf-8', errors='replace') for i, token in vocab.items()}
-    with open(os.path.join(output_dir, "TinyStories_vocab.json"), "w", encoding="utf-8") as f:
+    # TinyStories_vocab, OpenWebText_vocab
+    with open(os.path.join(output_dir, "OpenWebText_vocab.json"), "w", encoding="utf-8") as f:
         json.dump(vocab_serialized, f, ensure_ascii=False, indent=2)
 
     # Save merges
-    with open(os.path.join(output_dir, "TinyStories_merges.txt"), "w", encoding="utf-8") as f:
+    # TinyStories_vocab, OpenWebText_vocab
+    with open(os.path.join(output_dir, "OpenWebText_merges.txt"), "w", encoding="utf-8") as f:
         for a, b in merges:
             a_str = a.decode("utf-8", errors="replace")
             b_str = b.decode("utf-8", errors="replace")
@@ -400,7 +358,8 @@ def save_bpe_model(vocab: dict[int, bytes], merges: list[tuple[bytes, bytes]], o
 def main():
     start_time = time.time()
     vocab, merges = train_bpe(
-        input_path="data/TinyStoriesV2-GPT4-train.txt",
+        # input_path="data/TinyStoriesV2-GPT4-valid.txt", # train, valid
+        input_path="data/owt_valid.txt", # train, valid
         vocab_size=10000,
         special_tokens=["<|endoftext|>"]
     )
@@ -419,5 +378,6 @@ def test():
     print(f"tiktoken encoded: {ids}, decoded: {decoded}")
 
 if __name__ == "__main__":
-    # main()
-    test()
+    import pdb;pdb.set_trace()
+    main()
+    # test()
