@@ -172,10 +172,11 @@ def train_bpe(
             chunk = f.read(end - start).decode("utf-8", errors="ignore")
             chunk_list.append(chunk)
     task_args = [(chunk, special_tokens, False) for chunk in chunk_list]
-
+    print('boundaries: ', boundaries)
     with Pool(processes=num_processes) as pool:
         chunk_results = pool.map(process_chunk, task_args)
     # 3. Compute BPE merges
+    print('Compute BPE merges')
     merges : list[tuple[bytes, bytes]] = []
     pre_tokens_bytes: list[list[bytes]] = [token for chunk in chunk_results for token in chunk]
     """
@@ -195,7 +196,8 @@ def train_bpe(
 
     idx = len(vocab)
     while idx < vocab_size:
-        print(f'idx: {idx}')
+        if idx % 1000 == 0:
+            print(f'idx: {idx}')
         if not counts:
             break
             
@@ -360,8 +362,9 @@ def main():
     vocab, merges = train_bpe(
         # input_path="data/TinyStoriesV2-GPT4-valid.txt", # train, valid
         input_path="data/owt_valid.txt", # train, valid
-        vocab_size=10000,
-        special_tokens=["<|endoftext|>"]
+        vocab_size=32000,  # 10000, 32000
+        special_tokens=["<|endoftext|>"],
+        num_processes=16,
     )
     elapsed = time.time() - start_time
     print(f"Training completed in {elapsed:.2f} seconds.")
