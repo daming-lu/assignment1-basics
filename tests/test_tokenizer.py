@@ -15,6 +15,8 @@ from .common import FIXTURES_PATH, gpt2_bytes_to_unicode
 VOCAB_PATH = FIXTURES_PATH / "gpt2_vocab.json"
 MERGES_PATH = FIXTURES_PATH / "gpt2_merges.txt"
 
+EXAMPLE_VOCAB_PATH = FIXTURES_PATH / "encode_example_vocab.json"
+EXAMPLE_MERGES_PATH = FIXTURES_PATH / "encode_example_merges.txt"
 
 def memory_limit(max_mem):
     def decorator(f):
@@ -229,6 +231,21 @@ def test_roundtrip_unicode_string_with_special_tokens():
     decoded_string = tokenizer.decode(encoded_ids)
     assert test_string == decoded_string
 
+def test_encode_example():
+    tokenizer = get_tokenizer_from_vocab_merges_path(
+        vocab_path=EXAMPLE_VOCAB_PATH, merges_path=EXAMPLE_MERGES_PATH, special_tokens=["<|endoftext|>"]
+    )
+    test_string = "the cat ate"
+    encoded_ids = tokenizer.encode(test_string)
+    import pdb;pdb.set_trace()
+    print('encoded_ids', encoded_ids)
+    assert encoded_ids == [9, 7, 1, 5, 10,3]
+    # tokenized_string = [tokenizer.decode([x]) for x in encoded_ids]
+    # # Ensure the special <|endoftext|> token is preserved
+    # assert tokenized_string.count("<|endoftext|>") == 3
+
+    # decoded_string = tokenizer.decode(encoded_ids)
+    # assert test_string == decoded_string
 
 def test_unicode_string_with_special_tokens_matches_tiktoken():
     reference_tokenizer = tiktoken.get_encoding("gpt2")

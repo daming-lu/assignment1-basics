@@ -826,7 +826,6 @@ def run_load_checkpoint(
     return load_checkpoint(src, model, optimizer)
 
 
-from cs336_basics.bpe_tokenizer import Tokenizer
 def get_tokenizer(
     vocab: dict[int, bytes],
     merges: list[tuple[bytes, bytes]],
@@ -847,8 +846,10 @@ def get_tokenizer(
     Returns:
         A BPE tokenizer that uses the provided vocab, merges, and special tokens.
     """
-    # raise NotImplementedError
-    return Tokenizer(vocab, merges, special_tokens)
+    # from cs336_basics.bpe_tokenizer import Tokenizer
+    # return Tokenizer(vocab, merges, special_tokens)
+    from cs336_basics.diy_tokenizer import DiyTokenizer
+    return DiyTokenizer(vocab, merges, special_tokens)
 
 from cs336_basics.bpe_tokenizer import train_bpe
 # from cs336_basics.bpe_tokenizer_dml import train_bpe
