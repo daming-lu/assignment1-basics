@@ -246,6 +246,16 @@ def test_encode_example():
 
     # decoded_string = tokenizer.decode(encoded_ids)
     # assert test_string == decoded_string
+    
+def test_decode_example():
+    tokenizer = get_tokenizer_from_vocab_merges_path(
+        vocab_path=EXAMPLE_VOCAB_PATH, merges_path=EXAMPLE_MERGES_PATH, special_tokens=["<|endoftext|>"]
+    )
+    decode_ids = [9, 7, 1, 5, 10,3]
+    decoded_string = tokenizer.decode(decode_ids)
+    import pdb;pdb.set_trace()
+    print('decoded_string', decoded_string)
+    assert decoded_string == "the cat ate"    
 
 def test_unicode_string_with_special_tokens_matches_tiktoken():
     reference_tokenizer = tiktoken.get_encoding("gpt2")
