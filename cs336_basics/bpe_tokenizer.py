@@ -98,7 +98,7 @@ class Tokenizer:
         """
         for line in iterable:
             token_ids = self.encode(line)
-            yield from token_ids
+            yield from token_ids  # 这个 from 其实就是另一个 loop
 
     def decode(self, ids: list[int]) -> str:
         """Decode a sequence of token IDs into text."""

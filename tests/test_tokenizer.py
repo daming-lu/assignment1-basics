@@ -240,6 +240,8 @@ def test_encode_example():
     import pdb;pdb.set_trace()
     print('encoded_ids', encoded_ids)
     assert encoded_ids == [9, 7, 1, 5, 10,3]
+    print('encoded_ids', encoded_ids)
+    assert encoded_ids == [9, 7, 1, 5, 10,3]
     # tokenized_string = [tokenizer.decode([x]) for x in encoded_ids]
     # # Ensure the special <|endoftext|> token is preserved
     # assert tokenized_string.count("<|endoftext|>") == 3
@@ -251,6 +253,8 @@ def test_decode_example():
     tokenizer = get_tokenizer_from_vocab_merges_path(
         vocab_path=EXAMPLE_VOCAB_PATH, merges_path=EXAMPLE_MERGES_PATH, special_tokens=["<|endoftext|>"]
     )
+    import pdb;pdb.set_trace()
+    print('decoded_string', decoded_string)
     decode_ids = [9, 7, 1, 5, 10,3]
     decoded_string = tokenizer.decode(decode_ids)
     import pdb;pdb.set_trace()
@@ -273,6 +277,7 @@ def test_unicode_string_with_special_tokens_matches_tiktoken():
 
 
 def test_overlapping_special_tokens():
+    # import pdb;pdb.set_trace()
     tokenizer = get_tokenizer_from_vocab_merges_path(
         vocab_path=VOCAB_PATH,
         merges_path=MERGES_PATH,
@@ -408,6 +413,7 @@ def test_encode_special_token_double_newline_non_whitespace():
 
 
 def test_encode_iterable_tinystories_sample_roundtrip():
+    # import pdb;pdb.set_trace()
     tokenizer = get_tokenizer_from_vocab_merges_path(
         vocab_path=VOCAB_PATH,
         merges_path=MERGES_PATH,

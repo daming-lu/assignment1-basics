@@ -139,7 +139,7 @@ def run_scaled_dot_product_attention(
     Returns:
         Float[Tensor, " ... queries d_v"]: Output of SDPA
     """
-    import pdb;pdb.set_trace()
+    # import pdb;pdb.set_trace()
     d_k = Q.shape[-1]
     d_v = V.shape[-1]
     from cs336_basics.attention import Attention
@@ -714,7 +714,7 @@ def run_cross_entropy(
     # Support arbitrary leading batch-like dimensions before the final vocab dimension
     # Compute numerically-stable negative log-softmax for the target index.
     # 1) Shift by the maximum logit for numerical stability
-    import ipdb;ipdb.set_trace()
+    # import ipdb;ipdb.set_trace()
     max_logits = torch.amax(inputs, dim=-1, keepdim=True)
     shifted = inputs - max_logits
 
